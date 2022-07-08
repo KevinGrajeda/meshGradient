@@ -1,15 +1,21 @@
 
+import { ColorPicker } from "./ColorPicker";
+
 function PanelControl(props) {
   const { warpRatio,noiseRatio,bgColor,colors,numberPoints}=props.gradientValues;
+  let colorPickers=[];
+  for(let i=0;i<numberPoints;i++){
+    colorPickers.push(<ColorPicker key={i} color={colors[i]} onChange={(e)=>props.colorChange(e,i)}/>);
+  }
   return (
     <div className="panel" >
       <input type="range" name="warpRatio" value={warpRatio} min="0" max="1" step="any" onChange={props.handleChange}></input>
       <input type="range" name="noiseRatio" value={noiseRatio} min="0" max="0.2" step="any" onChange={props.handleChange}></input>
-      <input type="color" name="bgColor" value={bgColor} id="bgColor" onChange={props.handleChange}/>
-      <input type="color" name="color-1" value={colors[0]} onChange={props.handleChange}/>
-      <input type="color" name="color-2" value={colors[1]} onChange={props.handleChange}/>
-      <input type="color" name="color-3" value={colors[2]} onChange={props.handleChange}/>
-      <input type="color" name="color-4" value={colors[3]} onChange={props.handleChange}/>
+      
+      <ColorPicker name="bgColor" color={bgColor} onChange={(e)=>props.handleChange({target:{value:e,name:"bgColor"}})}/>
+      {colorPickers}
+      
+      
     </div>
   );
 }

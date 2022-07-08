@@ -42,8 +42,8 @@ function GradientCanvas(props) {
       theShader.setUniform("u_colors",colorsUniform);
       let positions=[];
       positions.push(0,1);
-      positions.push(1,1);
       positions.push(1,0);
+      positions.push(1,1);
       positions.push(0,0);
       theShader.setUniform("u_positions",positions);
       theShader.setUniform("u_numberPoints",numberPoints);
