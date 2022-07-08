@@ -93,7 +93,7 @@ float snoise(vec3 v){
 void main() {
 
   	vec2 st = gl_FragCoord.xy/u_resolution.xy;
-    vec3 noise=vec3(rand(st*3.));
+    vec3 noise=vec3(rand(st*3.+u_time));
     
     float warp=snoise(vec3(st.xy*1.,u_time))*u_warpRatio;
     st+=warp;
