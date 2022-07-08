@@ -1,16 +1,15 @@
 {
   "files": {
-    "main.css": "/meshGradient/static/css/main.073c9b0a.css",
-    "main.js": "/meshGradient/static/js/main.250bb884.js",
-    "static/js/787.fadd9cea.chunk.js": "/meshGradient/static/js/787.fadd9cea.chunk.js",
-    "static/media/logo.svg": "/meshGradient/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "main.css": "/meshGradient/static/css/main.e6c13ad2.css",
+    "main.js": "/meshGradient/static/js/main.af38c5cf.js",
+    "static/media/shader.frag": "/meshGradient/static/media/shader.ee1c400721ff6649682d.frag",
     "index.html": "/meshGradient/index.html",
-    "main.073c9b0a.css.map": "/meshGradient/static/css/main.073c9b0a.css.map",
-    "main.250bb884.js.map": "/meshGradient/static/js/main.250bb884.js.map",
-    "787.fadd9cea.chunk.js.map": "/meshGradient/static/js/787.fadd9cea.chunk.js.map"
+    "static/media/shader.vert": "/meshGradient/static/media/shader.d9cca870d8d741a4f6e3.vert",
+    "main.e6c13ad2.css.map": "/meshGradient/static/css/main.e6c13ad2.css.map",
+    "main.af38c5cf.js.map": "/meshGradient/static/js/main.af38c5cf.js.map"
   },
   "entrypoints": [
-    "static/css/main.073c9b0a.css",
-    "static/js/main.250bb884.js"
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.af38c5cf.js"
   ]
 }
