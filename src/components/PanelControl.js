@@ -13,6 +13,7 @@ function PanelControl(props) {
       <input type="range" name="noiseRatio" value={noiseRatio} min="0" max="0.2" step="any" onChange={props.handleChange}></input>
       
       <ColorPicker name="bgColor" color={bgColor} onChange={(e)=>props.handleChange({target:{value:e,name:"bgColor"}})}/>
+      
       {colorPickers}
       
       
