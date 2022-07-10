@@ -6,11 +6,12 @@ import PanelControl from './components/PanelControl';
 
 function App() {
   const [gradientValues, setgradientValues] = useState({
-    warpRatio: 0,
-    noiseRatio: 0,
-    bgColor: "#ffffff",
-    colors: ["#ff0000","#00ff00","#00ffff","#ffff00"],
+    warpRatio: 0.8,
+    noiseRatio: 0.05,
+    bgColor: "#000000",
+    colors: ["#ff0000","#0000ff"],
     numberPoints: 2,
+    //positions: [[1,0],[0,1]],
   });
 
   const handleChange = (event) => {
@@ -34,11 +35,34 @@ function App() {
     });
     
   };
+  const changeNumber = (event) => {
+    const {value} = event.target;
+    setgradientValues((prevState) => {
+      let newColors=prevState.colors;
+      let newNumberPoints=prevState.numberPoints;
+      //let newPositions=prevState.positions;
+      if(value==="+"){
+        newNumberPoints++;
+        newColors.push("#444444");
+        //newPositions.push([Math.random(),Math.random()]);
+      }else{
+        newNumberPoints--;
+        newColors.pop();
+        //newPositions.pop();
+      }
+      return {
+        ...prevState,
+        numberPoints: newNumberPoints,
+        colors: newColors,
+      };
+    });
+    
+  };
 
   return (
     <div className="App" >
       <GradientCanvas gradientValues={gradientValues}/>
-      <PanelControl handleChange={handleChange} colorChange={colorChange} gradientValues={gradientValues}/>
+      <PanelControl handleChange={handleChange} changeNumber={changeNumber} colorChange={colorChange} gradientValues={gradientValues}/>
       
     </div>
   );

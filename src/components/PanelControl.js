@@ -15,7 +15,8 @@ function PanelControl(props) {
       <ColorPicker name="bgColor" color={bgColor} onChange={(e)=>props.handleChange({target:{value:e,name:"bgColor"}})}/>
       
       {colorPickers}
-      
+      <input type="button" value="+" onClick={props.changeNumber}/>
+      <input type="button" value="-" onClick={props.changeNumber}/>
       
     </div>
   );

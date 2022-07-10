@@ -13,8 +13,12 @@ function GradientCanvas(props) {
     let { warpRatio,noiseRatio,bgColor,colors,numberPoints}=props.gradientValues;
     let theShader;
     let spaceCount=p.random(100);
-    
-
+    let positionsUniforms=[];
+    /*for(let i=0;i<numberPoints;i++){
+      positionsUniforms.push(p.random(),p.random());
+    }*/
+    positionsUniforms.push(0.,0.5);
+    positionsUniforms.push(1,0.5);
     
     p.preload= function() {
       theShader = p.loadShader(vert, frag);
@@ -37,18 +41,14 @@ function GradientCanvas(props) {
       let colorsUniform=[];
       for(let i=0;i<numberPoints;i++){
         colorsUniform.push(...hexToRgb(colors[i]));
-
       }
       theShader.setUniform("u_colors",colorsUniform);
-      let positions=[];
-      positions.push(0,1);
-      positions.push(1,0);
-      positions.push(1,1);
-      positions.push(0,0);
-      theShader.setUniform("u_positions",positions);
+      
+      theShader.setUniform("u_positions",positionsUniforms);
       theShader.setUniform("u_numberPoints",numberPoints);
       theShader.setUniform("u_noiseRatio",noiseRatio);
       theShader.setUniform("u_warpRatio",warpRatio);
+      theShader.setUniform("u_mouse",[p.mouseX,p.mouseY]);
       p.shader(theShader);  
       p.rect(0, 0, p.width, p.height);
     }
@@ -60,6 +60,10 @@ function GradientCanvas(props) {
     p.keyPressed= function(){
       if (p.key === ' '){
         spaceCount++;
+        positionsUniforms=[];
+        for(let i=0;i<numberPoints;i++){
+          positionsUniforms.push(p.random(),p.random());
+        }
       }
     }
 
