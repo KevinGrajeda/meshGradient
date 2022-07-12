@@ -14,11 +14,13 @@ function GradientCanvas(props) {
     let theShader;
     let spaceCount=p.random(100);
     let positionsUniforms=[];
-    /*for(let i=0;i<numberPoints;i++){
+    let canvasDiv;
+
+    for(let i=0;i<10;i++){
       positionsUniforms.push(p.random(),p.random());
-    }*/
-    positionsUniforms.push(0.,0.5);
-    positionsUniforms.push(1,0.5);
+    }
+    //positionsUniforms.push(0.,0.5);
+    //positionsUniforms.push(1,0.5);
     
     p.preload= function() {
       theShader = p.loadShader(vert, frag);
@@ -26,7 +28,14 @@ function GradientCanvas(props) {
 
     p.setup= function() {
       p.pixelDensity(1);
-      p.createCanvas(700, 300, p.WEBGL);
+      canvasDiv = document.getElementById('GradientCanvas');
+      var computedStyle = getComputedStyle(canvasDiv);
+
+      let elementHeight = canvasDiv.clientHeight;
+      let elementWidth = canvasDiv.clientWidth;
+      elementHeight -= parseFloat(computedStyle.paddingTop) + parseFloat(computedStyle.paddingBottom);
+      elementWidth -= parseFloat(computedStyle.paddingLeft) + parseFloat(computedStyle.paddingRight);
+      p.createCanvas(elementWidth, elementWidth, p.WEBGL);
 
       
       p.noStroke();
@@ -34,7 +43,6 @@ function GradientCanvas(props) {
 
     p.draw= function()  {
       p.background(0);
-      
       theShader.setUniform("u_resolution", [p.width, p.height]);
       theShader.setUniform("u_time",spaceCount);
       theShader.setUniform("u_bgColor",hexToRgb(bgColor));
@@ -53,16 +61,23 @@ function GradientCanvas(props) {
       p.rect(0, 0, p.width, p.height);
     }
 
-    //p.windowResized= function()  {
-    //    p.resizeCanvas(p.windowWidth, p.windowHeight);
-    //}
+    p.windowResized= function()  {
+      var computedStyle = getComputedStyle(canvasDiv);
+
+      let elementHeight = canvasDiv.clientHeight;
+      let elementWidth = canvasDiv.clientWidth;
+      elementHeight -= parseFloat(computedStyle.paddingTop) + parseFloat(computedStyle.paddingBottom);
+      elementWidth -= parseFloat(computedStyle.paddingLeft) + parseFloat(computedStyle.paddingRight);
+      
+      p.resizeCanvas(elementWidth, elementWidth);
+    }
 
     p.keyPressed= function(){
       if (p.key === ' '){
         spaceCount++;
         positionsUniforms=[];
         for(let i=0;i<numberPoints;i++){
-          positionsUniforms.push(p.random(),p.random());
+          positionsUniforms.push(p.random(-0.2,1.2),p.random(-0.2,1.2));
         }
       }
     }
@@ -115,7 +130,9 @@ function GradientCanvas(props) {
     [sketch]
   );
     return (
-      <div className="GradientCanvas" ref={containerRef} >
+      <div className="contenedorCanvas" id="contenedorCanvas">
+        <div className="GradientCanvas" id="GradientCanvas" ref={containerRef} >
+        </div>
       </div>
     );
 }

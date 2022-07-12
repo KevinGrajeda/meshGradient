@@ -9,14 +9,26 @@ function PanelControl(props) {
   }
   return (
     <div className="panel" >
-      <input type="range" name="warpRatio" value={warpRatio} min="0" max="1" step="any" onChange={props.handleChange}></input>
-      <input type="range" name="noiseRatio" value={noiseRatio} min="0" max="0.2" step="any" onChange={props.handleChange}></input>
-      
+      <label htmlFor="warpRatio">Warp</label>
+      <div className="range">
+        <i className="fa-solid fa-circle"></i>
+        <input type="range"  name="warpRatio" id="warpRatio" value={warpRatio} min="0" max="1" step="any" onChange={props.handleChange}></input>
+        <i className="fa-solid fa-splotch"></i>
+      </div>
+      <label htmlFor="warpRatio">Noise</label>
+      <div className="range">
+        <i className="fa-solid fa-camera"></i>
+        <input type="range" name="noiseRatio" id="noiseRatio" value={noiseRatio} min="0" max="0.2" step="any" onChange={props.handleChange}></input>
+        <i className="fa-solid fa-camera-retro"></i>
+      </div>
+      <div className="line"></div>
+      Colors
       <ColorPicker name="bgColor" color={bgColor} onChange={(e)=>props.handleChange({target:{value:e,name:"bgColor"}})}/>
       
+      {numberPoints<10?<input type="button" value="+" onClick={props.changeNumber}/>:""}
+      {numberPoints>1?<input type="button" value="-" onClick={props.changeNumber}/>:""}
       {colorPickers}
-      <input type="button" value="+" onClick={props.changeNumber}/>
-      <input type="button" value="-" onClick={props.changeNumber}/>
+      
       
     </div>
   );

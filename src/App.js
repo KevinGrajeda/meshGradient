@@ -61,9 +61,10 @@ function App() {
 
   return (
     <div className="App" >
-      <GradientCanvas gradientValues={gradientValues}/>
-      <PanelControl handleChange={handleChange} changeNumber={changeNumber} colorChange={colorChange} gradientValues={gradientValues}/>
-      
+      <div className="Contenedor">
+        <GradientCanvas gradientValues={gradientValues}/>
+        <PanelControl handleChange={handleChange} changeNumber={changeNumber} colorChange={colorChange} gradientValues={gradientValues}/>
+      </div>
     </div>
   );
 
