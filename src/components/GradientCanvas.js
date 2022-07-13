@@ -10,7 +10,8 @@ function GradientCanvas(props) {
   const [sketch, setSketch] = useState(undefined);
   
   const Sketch = (p) => {
-    let { warpRatio,noiseRatio,bgColor,colors,numberPoints}=props.gradientValues;
+    let { randomNumber, warpRatio,noiseRatio,bgColor,colors,numberPoints}=props.gradientValues;
+    randomNumber=+randomNumber;
     let theShader;
     let spaceCount=p.random(100);
     let positionsUniforms=[];
@@ -44,7 +45,7 @@ function GradientCanvas(props) {
     p.draw= function()  {
       p.background(0);
       theShader.setUniform("u_resolution", [p.width, p.height]);
-      theShader.setUniform("u_time",spaceCount);
+      theShader.setUniform("u_time",spaceCount+randomNumber);
       theShader.setUniform("u_bgColor",hexToRgb(bgColor));
       let colorsUniform=[];
       for(let i=0;i<numberPoints;i++){
@@ -74,24 +75,41 @@ function GradientCanvas(props) {
 
     p.keyPressed= function(){
       if (p.key === ' '){
-        spaceCount++;
+        randomizar();
+      }
+    }
+
+    function randomizar(){
+      spaceCount++;
+      positionsUniforms=[];
+      for(let i=0;i<numberPoints;i++){
+        positionsUniforms.push(p.random(-0.2,1.2),p.random(-0.2,1.2));
+      }
+    }
+
+    p.updateProps=function(props){
+      if(randomNumber!==+props.gradientValues.randomNumber){
         positionsUniforms=[];
         for(let i=0;i<numberPoints;i++){
           positionsUniforms.push(p.random(-0.2,1.2),p.random(-0.2,1.2));
         }
       }
-    }
+      ({ randomNumber,warpRatio,noiseRatio,bgColor,colors,numberPoints }= props.gradientValues);
+      randomNumber=+randomNumber;
 
-    p.updateProps=function(props){
-      ({ warpRatio,noiseRatio,bgColor,colors,numberPoints }= props.gradientValues);
     }
 
     function hexToRgb(hex) {
+      var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+      hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+        return r + r + g + g + b + b;
+      });
+    
       var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
       return result ? [
         parseInt(result[1], 16)/255,
         parseInt(result[2], 16)/255,
-        parseInt(result[3], 16)/255
+        parseInt(result[3], 16)/255,
       ] : null;
     }
   }

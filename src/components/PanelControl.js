@@ -1,12 +1,24 @@
 
 import { ColorPicker } from "./ColorPicker";
+import { HexColorInput } from "react-colorful";
+
 
 function PanelControl(props) {
-  const { warpRatio,noiseRatio,bgColor,colors,numberPoints}=props.gradientValues;
+  const { warpRatio,noiseRatio,bgColor,colors,numberPoints,randomNumber }=props.gradientValues;
   let colorPickers=[];
   for(let i=0;i<numberPoints;i++){
-    colorPickers.push(<ColorPicker key={i} color={colors[i]} onChange={(e)=>props.colorChange(e,i)}/>);
+    colorPickers.push(
+    <div key={i} className="colorDiv">
+      <ColorPicker  color={colors[i]} onChange={(e)=>props.colorChange(e,i)}/>
+      #<HexColorInput color={colors[i]} className="colorInput" onChange={(e)=>props.handleChange({target:{value:e,name:"bgColor"}})}/>
+      {i>0 ? 
+      <button  id={i} onClick={props.changeNumber}>
+        <i className="fa-solid fa-xmark"></i>
+      </button>
+      :""}
+    </div>)
   }
+
   return (
     <div className="panel" >
       <label htmlFor="warpRatio">Warp</label>
@@ -23,12 +35,25 @@ function PanelControl(props) {
       </div>
       <div className="line"></div>
       Colors
-      <ColorPicker name="bgColor" color={bgColor} onChange={(e)=>props.handleChange({target:{value:e,name:"bgColor"}})}/>
+      {numberPoints<10 ? 
+      <button  id="+" onClick={props.changeNumber}>
+        <i className="fa-solid fa-plus"></i>
+      </button>
+      :""}
       
-      {numberPoints<10?<input type="button" value="+" onClick={props.changeNumber}/>:""}
-      {numberPoints>1?<input type="button" value="-" onClick={props.changeNumber}/>:""}
-      {colorPickers}
+      <br/>
+      <div className="allColors">
+        <div className="colorDiv">
+          <ColorPicker name="bgColor" color={bgColor} onChange={(e)=>props.handleChange({target:{value:e,name:"bgColor"}})}/>
+          #<HexColorInput color={bgColor} className="colorInput" onChange={(e)=>props.handleChange({target:{value:e,name:"bgColor"}})}/>
+        </div>
+        
+        {colorPickers}
+      </div>
       
+      <button name="randomNumber" value={+randomNumber+1} onClick={props.handleChange}>
+        <i className="fa-solid fa-dice-six"></i>
+      </button>
       
     </div>
   );

@@ -21,6 +21,7 @@ export const ColorPicker = ({ color, onChange }) => {
       {isOpen && (
         <div className="popover" ref={popover}>
           <HexColorPicker color={color} onChange={onChange} />
+
         </div>
       )}
     </div>

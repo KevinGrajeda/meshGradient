@@ -11,6 +11,7 @@ function App() {
     bgColor: "#000000",
     colors: ["#ff0000","#0000ff"],
     numberPoints: 2,
+    randomNumber:1,
     //positions: [[1,0],[0,1]],
   });
 
@@ -33,21 +34,20 @@ function App() {
         colors: colors,
       };
     });
-    
   };
   const changeNumber = (event) => {
-    const {value} = event.target;
+    const {id} = event.target;
     setgradientValues((prevState) => {
       let newColors=prevState.colors;
       let newNumberPoints=prevState.numberPoints;
       //let newPositions=prevState.positions;
-      if(value==="+"){
+      if(id==="+"){
         newNumberPoints++;
         newColors.push("#444444");
         //newPositions.push([Math.random(),Math.random()]);
       }else{
         newNumberPoints--;
-        newColors.pop();
+        newColors.splice(id,1);
         //newPositions.pop();
       }
       return {
