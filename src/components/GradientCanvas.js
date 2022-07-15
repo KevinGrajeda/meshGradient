@@ -10,7 +10,7 @@ function GradientCanvas(props) {
   const [sketch, setSketch] = useState(undefined);
   
   const Sketch = (p) => {
-    let { randomNumber, warpRatio,noiseRatio,bgColor,colors,numberPoints}=props.gradientValues;
+    let { widthExport, heightExport, randomNumber, warpRatio,noiseRatio,bgColor,colors,numberPoints}=props.gradientValues;
     randomNumber=+randomNumber;
     let theShader;
     let spaceCount=p.random(100);
@@ -78,6 +78,13 @@ function GradientCanvas(props) {
         randomizar();
       }
     }
+    p.download=function(){
+      let w=p.width;
+      let h=p.height;
+      p.resizeCanvas(widthExport, heightExport);
+      p.save("myImage.jpg");
+      p.resizeCanvas(w, h);
+    }
 
     function randomizar(){
       spaceCount++;
@@ -87,6 +94,9 @@ function GradientCanvas(props) {
       }
     }
 
+    p.mousePressed = function(){
+    }
+    
     p.updateProps=function(props){
       if(randomNumber!==+props.gradientValues.randomNumber){
         positionsUniforms=[];
@@ -94,7 +104,7 @@ function GradientCanvas(props) {
           positionsUniforms.push(p.random(-0.2,1.2),p.random(-0.2,1.2));
         }
       }
-      ({ randomNumber,warpRatio,noiseRatio,bgColor,colors,numberPoints }= props.gradientValues);
+      ({ widthExport, heightExport, randomNumber,warpRatio,noiseRatio,bgColor,colors,numberPoints }= props.gradientValues);
       randomNumber=+randomNumber;
 
     }
@@ -138,7 +148,7 @@ function GradientCanvas(props) {
       // This effect is only responsible for cleaning up after the previous one 😅
       return () => {
         if (sketch) {
-          console.log('removing sketch!');
+          //console.log('removing sketch!');
           // Removing p5.js sketch because the component is un-mounting
           sketch.remove();
         }
@@ -146,6 +156,15 @@ function GradientCanvas(props) {
     },
     // This effect needs to be re-initialized *after* the sketch gets created
     [sketch]
+  );
+  useEffect(
+    () => {
+      if(props.download){
+        sketch.download();
+        props.setDownload(false);
+      }
+    },
+    [props.download]
   );
     return (
       <div className="contenedorCanvas" id="contenedorCanvas">

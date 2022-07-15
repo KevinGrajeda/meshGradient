@@ -35,11 +35,7 @@ function PanelControl(props) {
       </div>
       <div className="line"></div>
       Colors
-      {numberPoints<10 ? 
-      <button  id="+" onClick={props.changeNumber}>
-        <i className="fa-solid fa-plus"></i>
-      </button>
-      :""}
+      
       
       <br/>
       <div className="allColors">
@@ -49,12 +45,20 @@ function PanelControl(props) {
         </div>
         
         {colorPickers}
+        {numberPoints<10 ? 
+        <button  id="+" onClick={props.changeNumber}>
+          <i className="fa-solid fa-plus"></i>
+        </button>
+        :""}
       </div>
-      
+      Randomize
       <button name="randomNumber" value={+randomNumber+1} onClick={props.handleChange}>
         <i className="fa-solid fa-dice-six"></i>
       </button>
-      
+      Download
+      <button name="randomNumber"  onClick={props.setDownloadMostrar}>
+        <i className="fa-solid fa-download"></i>
+      </button>
     </div>
   );
 }

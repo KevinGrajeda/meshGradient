@@ -2,6 +2,7 @@ import './App.css';
 import {useState } from 'react';
 import GradientCanvas from './components/GradientCanvas';
 import PanelControl from './components/PanelControl';
+import DownloadDialog from './components/DownloadDialog';
 
 
 function App() {
@@ -13,8 +14,14 @@ function App() {
     numberPoints: 2,
     randomNumber:1,
     //positions: [[1,0],[0,1]],
+    widthExport:500,
+    heightExport:500,
   });
-
+  
+  const [downloadMostrar, setDownloadMostrar] = useState(false);
+  const [download, setDownload] = useState(false);
+  
+  
   const handleChange = (event) => {
     const { name, value } = event.target;
     setgradientValues((prevState) => {
@@ -61,9 +68,12 @@ function App() {
 
   return (
     <div className="App" >
+      {downloadMostrar?
+        <DownloadDialog setDownload={setDownload} setDownloadMostrar={setDownloadMostrar} gradientValues={gradientValues} handleChange={handleChange} download={download}/>
+      :""}
       <div className="Contenedor">
-        <GradientCanvas gradientValues={gradientValues}/>
-        <PanelControl handleChange={handleChange} changeNumber={changeNumber} colorChange={colorChange} gradientValues={gradientValues}/>
+        <GradientCanvas download={download} setDownload={setDownload} gradientValues={gradientValues}/>
+        <PanelControl setDownloadMostrar={setDownloadMostrar} handleChange={handleChange} changeNumber={changeNumber} colorChange={colorChange} gradientValues={gradientValues}/>
       </div>
     </div>
   );
