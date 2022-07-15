@@ -112,7 +112,7 @@ vec3 hsv2rgb(vec3 c)
 void main() {
 
   	vec2 st = gl_FragCoord.xy/u_resolution.xy;
-    vec3 noise=vec3(rand(vec2(st.x*3.+u_time,-st.y*st.x-u_time)));
+    vec3 noise=vec3(rand(vec2(st.x*5.+u_time,st.y*5.-u_time)));
     
     float warp=snoise(vec3(st.xy*1.,u_time))*u_warpRatio;
     st+=warp;
@@ -130,7 +130,7 @@ void main() {
         //if(i==0){
         //  pointPos=vec2(u_mouse.x/u_resolution.x,1.-u_mouse.y/u_resolution.y);
         //}
-        float dist=1.-distance(st,pointPos)*1.3;
+        float dist=1.-distance(st,pointPos)*1.1;
         pointGradient+=clamp(dist,0.,1.);
         colorGradient+=color*clamp(dist,0.,1.);
         totalLight*=(1.-dist)*(1.-dist);
