@@ -11,8 +11,9 @@ export const ColorPicker = ({ color, onChange }) => {
   useClickOutside(popover, close);
 
   return (
-    <div className="picker">
-      <div
+    <div  className="picker">
+      <input
+        type="button"
         className="swatch"
         style={{ backgroundColor: color }}
         onClick={() => toggle(true)}

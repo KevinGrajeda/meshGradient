@@ -21,13 +21,17 @@
 body{
   background-color: #f3f3f3;
   font-weight: normal;
-  font-family: 'Montserrat', sans-serif;
   color:var(--secundario);
+}
+*:not(i){
+  font-family: 'Montserrat', sans-serif;
 }
 .App{
   height:100%;
   width: 100%;
   display: flex;
+  align-items: center;
+  justify-content: center;
 }
 h1{
   font-size: 2rem;
@@ -50,42 +54,47 @@ h1{
 .downloadContainer{
   background-color: var(--principal);
   border: 3px solid var(--border);
-  border-radius: 30px;
+  border-radius: 8px;
   padding: 20px;
 }
 
 .Contenedor{
   width: 100%;
-  max-width: 1800px;
-  margin: auto;
+  max-width: 1500px;
   display: flex;
   justify-content: center;
   gap: 30px;
   padding: 20px;
   
-  border-radius: 30px ;
+  align-items: center;
+  height: 100%;
+  max-height: 700px;
 }
 .contenedorCanvas{
   width: 45%;
-  border-radius: 30px;
+  height: 100%;
 }
 .GradientCanvas{
-  line-height: 0;
-  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .panel{
   font-size: 2rem;
   width: 45%;
-  padding: 30px;
-  padding-top: 10px;
+  padding: 24px;
+  padding-top: 30px;
   border: 3px solid var(--border);
-  border-radius: 10px;
+  border-radius: 8px;
   background-color: var(--principal);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 label{
   display: block;
-  margin-top: 1rem;
   margin-bottom: 0.5rem;
 }
 
@@ -104,9 +113,17 @@ input[type="range"] {
   appearance: none;
   width: 80%;
   height: 3px;
-  border-radius: 5px;
+  border-radius: 8px;
   background-color: var(--border);
   cursor: pointer;
+}
+input[type="range"]:focus{
+  outline: none;
+  background-color: var(--cuarto);
+}
+input[type="range"]:focus::-webkit-slider-thumb{
+  border: 3px solid var(--cuarto);
+  background-color: var(--principal);
 }
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none; /* Override default look */
@@ -129,23 +146,52 @@ input[type="range"]::-webkit-slider-thumb {
   margin-bottom: 1rem;
   
 }
+
 button{
   border: 3px solid var(--border);
-  border-radius: 5px;
+  border-radius: 8px;
   font-size: 1.5rem;
   height: 2rem;
   width: 2rem;
   display: inline-flex;
   justify-content: center;
+  gap: 5px;
   align-items: center;
   cursor: pointer;
-  margin-left: 0.5rem;
+  transition: 0.05s;
+  padding: 0px;
+  color: var(--tercer);
+}
+i{
+  transition: inherit;
 }
 
+button:focus{
+  outline: none;
+  border-color: var(--secundario);
+  background-color: var(--cuarto);
+  color: var(--principal);
+}
+button:focus i{
+  color: var(--principal);
+}
+.colorsMiddle{
+  flex-grow: 1;
+  overflow: hidden;
+  overflow-x: auto;
+}
 button:hover{
   background-color: var(--border);
 }
 button:hover i{
+  color: var(--principal);
+}
+.widerButton{
+  width: auto;
+  height: auto;
+  padding: 0.3rem 0.5rem;
+}
+.widerButton:hover{
   color: var(--principal);
 }
 
@@ -154,7 +200,7 @@ button:hover i{
   flex-direction: column;
   flex-wrap: wrap;
   gap: 16px;
-  margin-top: 0.5rem;
+  height: 100%;
   color: var(--border);
 }
 .colorDiv{
@@ -169,7 +215,7 @@ button:hover i{
   font-size: 2rem;
   border: none;
   border-bottom: 3px solid var(--border);
-  
+  font-family: monospace;
   padding-top: 4px;
   width: 8rem;
   color: var(--border);
@@ -182,30 +228,41 @@ button:hover i{
   border-color: var(--tercer);
   color: var(--secundario);
 }
+.centerButtons{
+  display: flex;
+  justify-content: space-evenly;
 
+}
 .picker {
   position: relative;
-  width:34px;
   display: inline-block;
 }
 
 .swatch {
+  
   width: 2rem;
   height: 2rem;
   border-radius: 8px;
   border: 3px solid var(--border);
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  
+  display: block;
+}
+.swatch:focus{
+  outline: none;
+  border-color: var(--cuarto);
+  border-width: 6px;
 }
 
 .popover {
   position: absolute;
-  top: calc(100% + 2px);
+  bottom: calc(100% + 200px);
   left: 0;
-  border-radius: 9px;
+  border-radius: 8px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   z-index: 2;
+}
+.react-colorful{
+  position: fixed !important;
 }
 @media only screen and (max-width: 768px) {
   .App{

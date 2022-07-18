@@ -30,14 +30,8 @@ function GradientCanvas(props) {
     p.setup= function() {
       p.pixelDensity(1);
       canvasDiv = document.getElementById('GradientCanvas');
-      var computedStyle = getComputedStyle(canvasDiv);
-
-      let elementHeight = canvasDiv.clientHeight;
-      let elementWidth = canvasDiv.clientWidth;
-      elementHeight -= parseFloat(computedStyle.paddingTop) + parseFloat(computedStyle.paddingBottom);
-      elementWidth -= parseFloat(computedStyle.paddingLeft) + parseFloat(computedStyle.paddingRight);
-      p.createCanvas(elementWidth, elementWidth, p.WEBGL);
-
+      p.createCanvas(400, 400, p.WEBGL);
+      p.windowResized();
       
       p.noStroke();
     }
@@ -69,8 +63,12 @@ function GradientCanvas(props) {
       let elementWidth = canvasDiv.clientWidth;
       elementHeight -= parseFloat(computedStyle.paddingTop) + parseFloat(computedStyle.paddingBottom);
       elementWidth -= parseFloat(computedStyle.paddingLeft) + parseFloat(computedStyle.paddingRight);
-      
-      p.resizeCanvas(elementWidth, elementWidth);
+      if(elementHeight<elementWidth){
+        p.resizeCanvas(elementHeight, elementHeight);
+      }else{
+        p.resizeCanvas(elementWidth, elementWidth);
+
+      }
     }
 
     p.keyPressed= function(){
