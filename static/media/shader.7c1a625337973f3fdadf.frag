@@ -10,6 +10,7 @@ uniform vec2 u_positions[10];
 uniform int u_numberPoints;
 uniform float u_noiseRatio;
 uniform float u_warpRatio;
+uniform float u_warpSize;
 uniform vec2 u_mouse;
 
 float rand(vec2 n) { 
@@ -112,9 +113,10 @@ vec3 hsv2rgb(vec3 c)
 void main() {
 
   	vec2 st = gl_FragCoord.xy/u_resolution.xy;
+    st.y=1.-st.y;
     vec3 noise=vec3(rand(vec2(st.x*5.+u_time,st.y*5.-u_time)));
     
-    float warp=snoise(vec3(st.xy*1.,u_time))*u_warpRatio;
+    float warp=snoise(vec3(st.xy*u_warpSize,u_time))*u_warpRatio;
     st+=warp;
     //warp=snoise(vec3(st.xy*2.,u_time))*m/2.;
     //st+=warp;
