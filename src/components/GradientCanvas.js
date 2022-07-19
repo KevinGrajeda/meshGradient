@@ -10,19 +10,15 @@ function GradientCanvas(props) {
   const [sketch, setSketch] = useState(undefined);
   
   const Sketch = (p) => {
-    let { widthExport, heightExport, randomNumber, warpRatio,noiseRatio,bgColor,colors,numberPoints}=props.gradientValues;
+    let { widthExport, heightExport, randomNumber, warpRatio,warpSize,noiseRatio,bgColor,colors,numberPoints}=props.gradientValues;
     randomNumber=+randomNumber;
     let theShader;
     let spaceCount=p.random(100);
     let positionsUniforms=[];
     let canvasDiv;
+    let showPoints=false;
+    let points=[];
 
-    for(let i=0;i<10;i++){
-      positionsUniforms.push(p.random(),p.random());
-    }
-    //positionsUniforms.push(0.,0.5);
-    //positionsUniforms.push(1,0.5);
-    
     p.preload= function() {
       theShader = p.loadShader(vert, frag);
     }
@@ -30,10 +26,24 @@ function GradientCanvas(props) {
     p.setup= function() {
       p.pixelDensity(1);
       canvasDiv = document.getElementById('GradientCanvas');
-      p.createCanvas(400, 400, p.WEBGL);
+      let cnv = p.createCanvas(400, 400, p.WEBGL);
+      cnv.mouseOver(()=>{showPoints=true});
+      cnv.mouseOut(()=>{showPoints=false});
+      const gl = p.canvas.getContext('webgl');
+      gl.disable(gl.DEPTH_TEST);
       p.windowResized();
       
       p.noStroke();
+
+      for(let i=0;i<10;i++){
+        points.push({
+          x : p.random()*p.width,
+          y : p.random()*p.height,
+          clicked : false,
+          color: i>=numberPoints?'#444444':colors[i],
+        });
+      }
+      pointsToUniform();
     }
 
     p.draw= function()  {
@@ -52,8 +62,12 @@ function GradientCanvas(props) {
       theShader.setUniform("u_noiseRatio",noiseRatio);
       theShader.setUniform("u_warpRatio",warpRatio);
       theShader.setUniform("u_mouse",[p.mouseX,p.mouseY]);
+      theShader.setUniform("u_warpSize",warpSize);
       p.shader(theShader);  
       p.rect(0, 0, p.width, p.height);
+      if(showPoints){
+        p.drawPoints();
+      }
     }
 
     p.windowResized= function()  {
@@ -70,7 +84,39 @@ function GradientCanvas(props) {
 
       }
     }
-
+    p.drawPoints= function(){
+      p.resetShader();
+      p.translate(-p.width/2,-p.height/2);
+      //p.circle(-p.width/2,-p.width/2,50);
+      for(let i=0;i<numberPoints;i++){
+        p.fill(255);
+        p.circle(points[i].x,points[i].y,20);
+        p.fill(points[i].color);
+        p.circle(points[i].x,points[i].y,15);
+      }
+    }
+    
+    p.mousePressed = function(){
+      for(let i=0;i<numberPoints;i++){
+        let dist = p.dist(p.mouseX, p.mouseY, points[i].x, points[i].y);
+        points[i].clicked = dist < 10;
+      }
+    }
+    p.mouseDragged = function(){
+      for(let i=0;i<numberPoints;i++){
+        if(points[i].clicked){
+          points[i].x=p.mouseX;
+          points[i].y=p.mouseY;
+        }
+      }
+      pointsToUniform();
+    }
+    function pointsToUniform(){
+      positionsUniforms=[];
+      for(let i=0;i<numberPoints;i++){
+        positionsUniforms.push(points[i].x/p.width,points[i].y/p.height);
+      }
+    }
     p.keyPressed= function(){
       if (p.key === ' '){
         randomizar();
@@ -80,7 +126,7 @@ function GradientCanvas(props) {
       let w=p.width;
       let h=p.height;
       p.resizeCanvas(widthExport, heightExport);
-      p.save("myImage.jpg");
+      p.save("meshGradient.png");
       p.resizeCanvas(w, h);
     }
 
@@ -88,23 +134,22 @@ function GradientCanvas(props) {
       spaceCount++;
       positionsUniforms=[];
       for(let i=0;i<numberPoints;i++){
-        positionsUniforms.push(p.random(-0.2,1.2),p.random(-0.2,1.2));
+        points[i].x=p.random()*p.width;
+        points[i].y=p.random()*p.height;
       }
+      pointsToUniform();
     }
 
-    p.mousePressed = function(){
-    }
     
     p.updateProps=function(props){
       if(randomNumber!==+props.gradientValues.randomNumber){
-        positionsUniforms=[];
-        for(let i=0;i<numberPoints;i++){
-          positionsUniforms.push(p.random(-0.2,1.2),p.random(-0.2,1.2));
-        }
+        randomizar();
       }
-      ({ widthExport, heightExport, randomNumber,warpRatio,noiseRatio,bgColor,colors,numberPoints }= props.gradientValues);
+      ({ widthExport, heightExport, randomNumber,warpRatio,warpSize,noiseRatio,bgColor,colors,numberPoints }= props.gradientValues);
       randomNumber=+randomNumber;
-
+      for(let i=0;i<numberPoints;i++){
+        points[i].color=colors[i];
+      }
     }
 
     function hexToRgb(hex) {

@@ -8,6 +8,7 @@ import DownloadDialog from './components/DownloadDialog';
 function App() {
   const [gradientValues, setgradientValues] = useState({
     warpRatio: 0.8,
+    warpSize: 1,
     noiseRatio: 0.05,
     bgColor: "#000000",
     colors: ["#ff0000","#0000ff"],
