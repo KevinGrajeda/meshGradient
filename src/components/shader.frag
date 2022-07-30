@@ -143,7 +143,7 @@ void main() {
     colorGradient=(colorGradient/pointGradient)*totalLight;
 
     vec3 bgGradient=(1.-totalLight)*u_bgColor;
-    vec3 total=mix(colorGradient+bgGradient,noise,u_noiseRatio);
+    vec3 total=mix(clamp(colorGradient,0.,1.)+bgGradient,noise,u_noiseRatio);
     gl_FragColor = vec4(vec3(total),1.);
     
     /*

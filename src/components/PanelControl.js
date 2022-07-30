@@ -65,11 +65,11 @@ function PanelControl(props) {
         <div className="line"></div>
         <div className="centerButtons">
           <button className="widerButton" name="randomNumber" value={+randomNumber+1} onClick={props.handleChange}>
-            Generate<i className="fa-solid fa-arrows-rotate"></i>
+            <span>Generate</span><i className="fa-solid fa-arrows-rotate"></i>
           </button>
           
           <button className="widerButton" name="randomNumber"  onClick={props.setDownloadMostrar}>
-            Download<i className="fa-solid fa-download"></i>
+            <span>Download</span><i className="fa-solid fa-download"></i>
           </button>
         </div>
       </div>
