@@ -116,6 +116,7 @@ h2{
   display: flex;
   flex-direction: column;
   height: 100%;
+  user-select: none;
 }
 label{
   display: block;
@@ -148,14 +149,26 @@ input[type="range"]:focus::-webkit-slider-thumb{
   border: 3px solid var(--cuarto);
   background-color: var(--principal);
 }
+input[type="range"]:focus::-moz-range-thumb{
+  border: 3px solid var(--cuarto);
+  background-color: var(--principal);
+}
 input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none; /* Override default look */
+  -webkit-appearance: none;
   appearance: none;
-  width: 15px; /* Set a specific slider handle width */
-  height: 30px; /* Slider handle height */
+  width: 15px;
+  height: 30px;
   border-radius: 8px;
-  background: var(--secundario); /* Green background */
-  cursor: pointer; /* Cursor on hover */
+  background: var(--secundario);
+  cursor: pointer;
+  border: 2px solid var(--principal);
+}
+input[type="range"]::-moz-range-thumb {
+  width: 15px;
+  height: 30px;
+  border-radius: 8px;
+  background: var(--secundario);
+  cursor: pointer;
   border: 2px solid var(--principal);
 }
 
@@ -181,13 +194,12 @@ button{
   gap: 10px;
   align-items: center;
   cursor: pointer;
-  transition: 0.05s;
   padding: 0px;
   color: var(--tercer);
   line-height: 0;
 }
-i{
-  transition: inherit;
+button span{
+  pointer-events: none;
 }
 
 button:focus{
@@ -205,11 +217,17 @@ button:focus i{
   overflow-x: auto;
 }
 button:hover{
-  background-color: var(--border);
+  border-color: var(--cuarto);
+  /*color: var(--principal);*/
 }
 button:hover i{
-  color: var(--principal);
+  transition: transform 0.3s;
+  transition-timing-function: cubic-bezier(0.5, -0.25, 0.5, 1.25);
 }
+button:hover .fa-arrows-rotate{
+  transform: rotate(180deg);
+}
+
 .buttonX{
   border: none;
   background: none;
@@ -229,10 +247,6 @@ button:hover i{
   height: auto;
   padding: 0.3rem 0.5rem;
 }
-.widerButton:hover{
-  color: var(--principal);
-}
-
 .allColors{
   display: flex;
   flex-direction: column;
@@ -250,12 +264,12 @@ button:hover i{
   height: 2rem;
 }
 .colorInput,.inputSize{
-  font-size: 2rem;
+  font-size: 1.8rem;
   border: none;
   border-bottom: 3px solid var(--border);
   font-family: 'Roboto Mono', monospace;
   padding-top: 4px;
-  width: 7rem;
+  width: 6.5rem;
   color: var(--border);
   height: 2rem;
   padding-left: 0rem;
@@ -305,29 +319,46 @@ button:hover i{
   position: fixed !important;
 }
 @media only screen and (max-width: 768px) {
-  #root{
-    height: auto;
+  html{
+    font-size: 0.9rem;
   }
   .App{
     padding: 0;
+    display: block;
   }
   .Contenedor{
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
+    height: 100vh;
+    max-height: none;
+    padding: 10px;
   }
   .contenedorCanvas{
     width: 100%;
-    position: sticky;
-    top: 0px;
     z-index: 3;
+    height: auto;
+  }
+  .GradientCanvas{
+    height: 100vh;
+    max-height: 45vh;
   }
   .panel{
     width: 100%;
+    height: 100%;
+    overflow: scroll;
+    padding: 10px;
+  }
+  .colorsMiddle{
+    overflow: visible;
+    padding-left: 1rem;
+  }
+  .widerButton{
+    font-size: 1.5rem;
   }
   .widerButton span{
     display: none;
   }
   .react-colorful{
-    bottom: 0;
+    bottom: 10px;
   }
 }
