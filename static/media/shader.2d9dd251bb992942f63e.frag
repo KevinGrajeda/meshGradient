@@ -16,6 +16,7 @@ uniform vec2 u_mouse;
 float rand(vec2 n) { 
 	return fract(sin(dot(n, vec2(12.9898, 4.1414))) * 43758.5453);
 }
+
 //	Simplex 3D Noise 
 //	by Ian McEwan, Ashima Arts
 //
@@ -26,30 +27,24 @@ float snoise(vec3 v){
   const vec2  C = vec2(1.0/6.0, 1.0/3.0) ;
   const vec4  D = vec4(0.0, 0.5, 1.0, 2.0);
 
-// First corner
   vec3 i  = floor(v + dot(v, C.yyy) );
   vec3 x0 =   v - i + dot(i, C.xxx) ;
 
-// Other corners
   vec3 g = step(x0.yzx, x0.xyz);
   vec3 l = 1.0 - g;
   vec3 i1 = min( g.xyz, l.zxy );
   vec3 i2 = max( g.xyz, l.zxy );
 
-  //  x0 = x0 - 0. + 0.0 * C 
   vec3 x1 = x0 - i1 + 1.0 * C.xxx;
   vec3 x2 = x0 - i2 + 2.0 * C.xxx;
   vec3 x3 = x0 - 1. + 3.0 * C.xxx;
 
-// Permutations
   i = mod(i, 289.0 ); 
   vec4 p = permute( permute( permute( 
              i.z + vec4(0.0, i1.z, i2.z, 1.0 ))
            + i.y + vec4(0.0, i1.y, i2.y, 1.0 )) 
            + i.x + vec4(0.0, i1.x, i2.x, 1.0 ));
 
-// Gradients
-// ( N*N points uniformly over a square, mapped onto an octahedron.)
   float n_ = 1.0/7.0; // N=7
   vec3  ns = n_ * D.wyz - D.xzx;
 
@@ -77,19 +72,20 @@ float snoise(vec3 v){
   vec3 p2 = vec3(a1.xy,h.z);
   vec3 p3 = vec3(a1.zw,h.w);
 
-//Normalise gradients
   vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2, p2), dot(p3,p3)));
   p0 *= norm.x;
   p1 *= norm.y;
   p2 *= norm.z;
   p3 *= norm.w;
 
-// Mix final noise value
   vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
   m = m * m;
   return 42.0 * dot( m*m, vec4( dot(p0,x0), dot(p1,x1), 
                                 dot(p2,x2), dot(p3,x3) ) );
 }
+
+/*
+//conversion hue rgb
 vec3 rgb2hsv(vec3 c)
 {
     vec4 K = vec4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
@@ -106,32 +102,24 @@ vec3 hsv2rgb(vec3 c)
     vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
     vec3 p = abs(fract(c.xxx + K.xyz) * 6.0 - K.www);
     return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
-}
-
-
+}*/
 
 void main() {
-
   	vec2 st = gl_FragCoord.xy/u_resolution.xy;
     st.y=1.-st.y;
     vec3 noise=vec3(rand(vec2(st.x*5.+u_time,st.y*5.-u_time)));
     
     float warp=snoise(vec3(st.xy*u_warpSize,u_time))*u_warpRatio;
     st+=warp;
-    //warp=snoise(vec3(st.xy*2.,u_time))*m/2.;
-    //st+=warp;
-
     
     float pointGradient=0.;
     vec3 colorGradient=vec3(0.);
     float totalLight=1.;
+
     for(int i=0;i<10;i++){
       if(i<u_numberPoints){
         vec3 color=u_colors[i];
         vec2 pointPos=u_positions[i];
-        //if(i==0){
-        //  pointPos=vec2(u_mouse.x/u_resolution.x,1.-u_mouse.y/u_resolution.y);
-        //}
         float dist=1.-distance(st,pointPos)*1.1;
         pointGradient+=clamp(dist,0.,1.);
         colorGradient+=color*clamp(dist,0.,1.);
@@ -141,13 +129,12 @@ void main() {
     
     totalLight=smoothstep(0.,1.,clamp(1.-totalLight,0.,1.));
     colorGradient=(colorGradient/pointGradient)*totalLight;
-
     vec3 bgGradient=(1.-totalLight)*u_bgColor;
     vec3 total=mix(clamp(colorGradient,0.,1.)+bgGradient,noise,u_noiseRatio);
     gl_FragColor = vec4(vec3(total),1.);
     
     /*
-    
+    //gradiente en hue
     float pointGradient=0.;
     float colorGradient=0.;
     vec3 totalCol=vec3(0.);
@@ -156,13 +143,9 @@ void main() {
       if(i<u_numberPoints){
         vec3 color=rgb_to_hcy(u_colors[i]);
         vec2 pointPos=u_positions[i];
-        //if(i==0){
-        //  pointPos=vec2(u_mouse.x/u_resolution.x,1.-u_mouse.y/u_resolution.y);
-        //}
         float dist=1.-distance(st,pointPos)*1.5;
         pointGradient+=clamp(dist,0.,1.);
         totalCol+=color*clamp(dist,0.,1.);
-        //totalLig=max(totalLig,dist);
         totalLight*=(1.-dist);
       }
     }
@@ -170,6 +153,5 @@ void main() {
     vec3 colorMix=hcy_to_rgb(vec3(totalCol/pointGradient))*totalLight;
     vec3 bgGradient=vec3(1.-totalLight)*u_bgColor;
     vec3 total=colorMix+bgGradient;
-    
   	gl_FragColor = vec4(vec3(total),1.);*/
 }
