@@ -6,11 +6,19 @@ import frag from './shader.frag'
 
 function GradientCanvas(props) {
   const containerRef = useRef();
-  
   const [sketch, setSketch] = useState(undefined);
   
   const Sketch = (p) => {
-    let { widthExport, heightExport, randomNumber, warpRatio,warpSize,noiseRatio,bgColor,colors,numberPoints}=props.gradientValues;
+    let { widthExport,
+      heightExport,
+      randomNumber,
+      warpRatio,
+      warpSize,
+      noiseRatio,
+      bgColor,
+      colors,
+      numberPoints
+    }=props.gradientValues;
     randomNumber=+randomNumber;
     let theShader;
     let spaceCount=p.random(100);
@@ -56,14 +64,13 @@ function GradientCanvas(props) {
         colorsUniform.push(...hexToRgb(colors[i]));
       }
       theShader.setUniform("u_colors",colorsUniform);
-      
       theShader.setUniform("u_positions",positionsUniforms);
       theShader.setUniform("u_numberPoints",numberPoints);
       theShader.setUniform("u_noiseRatio",noiseRatio);
       theShader.setUniform("u_warpRatio",warpRatio);
       theShader.setUniform("u_mouse",[p.mouseX,p.mouseY]);
       theShader.setUniform("u_warpSize",warpSize);
-      p.shader(theShader);  
+      p.shader(theShader);
       p.rect(0, 0, p.width, p.height);
       if(showPoints){
         p.drawPoints();
@@ -72,7 +79,6 @@ function GradientCanvas(props) {
 
     p.windowResized= function()  {
       var computedStyle = getComputedStyle(canvasDiv);
-
       let elementHeight = canvasDiv.clientHeight;
       let elementWidth = canvasDiv.clientWidth;
       elementHeight -= parseFloat(computedStyle.paddingTop) + parseFloat(computedStyle.paddingBottom);
@@ -84,10 +90,10 @@ function GradientCanvas(props) {
 
       }
     }
+    
     p.drawPoints= function(){
       p.resetShader();
       p.translate(-p.width/2,-p.height/2);
-      //p.circle(-p.width/2,-p.width/2,50);
       for(let i=0;i<numberPoints;i++){
         p.fill(255);
         p.circle(points[i].x,points[i].y,20);
@@ -102,6 +108,7 @@ function GradientCanvas(props) {
         points[i].clicked = dist < 10;
       }
     }
+    
     p.mouseDragged = function(){
       for(let i=0;i<numberPoints;i++){
         if(points[i].clicked){
@@ -111,17 +118,20 @@ function GradientCanvas(props) {
       }
       pointsToUniform();
     }
+    
     function pointsToUniform(){
       positionsUniforms=[];
       for(let i=0;i<numberPoints;i++){
         positionsUniforms.push(points[i].x/p.width,points[i].y/p.height);
       }
     }
+    
     p.keyPressed= function(){
       if (p.key === ' '){
         randomizar();
       }
     }
+
     p.download=function(){
       let w=p.width;
       let h=p.height;
@@ -145,7 +155,17 @@ function GradientCanvas(props) {
       if(randomNumber!==+props.gradientValues.randomNumber){
         randomizar();
       }
-      ({ widthExport, heightExport, randomNumber,warpRatio,warpSize,noiseRatio,bgColor,colors,numberPoints }= props.gradientValues);
+      ({ widthExport,
+        heightExport,
+        randomNumber,
+        warpRatio,
+        warpSize,
+        noiseRatio,
+        bgColor,
+        colors,
+        numberPoints
+      }= props.gradientValues);
+
       randomNumber=+randomNumber;
       for(let i=0;i<numberPoints;i++){
         points[i].color=colors[i];
@@ -157,7 +177,6 @@ function GradientCanvas(props) {
       hex = hex.replace(shorthandRegex, function(m, r, g, b) {
         return r + r + g + g + b + b;
       });
-    
       var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
       return result ? [
         parseInt(result[1], 16)/255,
@@ -167,39 +186,31 @@ function GradientCanvas(props) {
     }
   }
 
-
+  //cambio de props
   useEffect(
     () => {
       if (!sketch) {
-        // Initialize sketch
         let inst = new p5(Sketch, containerRef.current);
-      
         setSketch(inst);
       } else {
-        // Update sketch
         sketch.updateProps(props);
       }
-      
-      // We cannot return a cleanup function here, be cause it would run every time the dataFromSibling prop changed
     },
-    // Let React know that this effect needs re-rendering when the dataFromSibling prop changes
     [props]
   );
   
+  //quitar el sketch si cambia
   useEffect(
     () => {
-      // This effect is only responsible for cleaning up after the previous one 😅
       return () => {
         if (sketch) {
-          //console.log('removing sketch!');
-          // Removing p5.js sketch because the component is un-mounting
           sketch.remove();
         }
       };
     },
-    // This effect needs to be re-initialized *after* the sketch gets created
     [sketch]
   );
+
   useEffect(
     () => {
       if(props.download){
@@ -209,11 +220,12 @@ function GradientCanvas(props) {
     },
     [props.download]
   );
-    return (
-      <div className="contenedorCanvas" id="contenedorCanvas">
-        <div className="GradientCanvas" id="GradientCanvas" ref={containerRef} >
-        </div>
+
+  return (
+    <div className="contenedorCanvas" id="contenedorCanvas">
+      <div className="GradientCanvas" id="GradientCanvas" ref={containerRef} >
       </div>
-    );
+    </div>
+  );
 }
 export default GradientCanvas;

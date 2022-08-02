@@ -1,5 +1,5 @@
 import './App.css';
-import {useState } from 'react';
+import {useState, useCallback} from 'react';
 import GradientCanvas from './components/GradientCanvas';
 import PanelControl from './components/PanelControl';
 import DownloadDialog from './components/DownloadDialog';
@@ -23,7 +23,7 @@ function App() {
   const [download, setDownload] = useState(false);
   
   
-  const handleChange = (event) => {
+  const handleChange = useCallback((event) => {
     const { name, value } = event.target;
     setgradientValues((prevState) => {
       return {
@@ -31,8 +31,9 @@ function App() {
         [name]: value,
       };
     });
-  };
-  const colorChange = (color,n) => {
+  },[]);
+
+  const colorChange = useCallback((color,n) => {
     
     setgradientValues((prevState) => {
       let colors=prevState.colors;
@@ -42,21 +43,19 @@ function App() {
         colors: colors,
       };
     });
-  };
-  const changeNumber = (event) => {
+  }, []);
+  
+  const changeNumber = useCallback((event) => {
     const {id} = event.target;
     setgradientValues((prevState) => {
       let newColors=prevState.colors;
       let newNumberPoints=prevState.numberPoints;
-      //let newPositions=prevState.positions;
       if(id==="+"){
         newNumberPoints++;
         newColors.push("#444444");
-        //newPositions.push([Math.random(),Math.random()]);
       }else{
         newNumberPoints--;
         newColors.splice(id,1);
-        //newPositions.pop();
       }
       return {
         ...prevState,
@@ -65,7 +64,7 @@ function App() {
       };
     });
     
-  };
+  }, [gradientValues.colors,gradientValues.numberPoints]);
 
   return (
     <div className="App" >

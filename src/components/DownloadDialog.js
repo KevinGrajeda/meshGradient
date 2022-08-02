@@ -1,6 +1,8 @@
 
 function DownloadDialog(props) {
+
   let { widthExport, heightExport }=props.gradientValues;
+
   return(
     <div className='downloadDialog' >
       <div className='downloadContainer'>
@@ -8,6 +10,7 @@ function DownloadDialog(props) {
           <i className="fa-solid fa-xmark"></i>
         </button>
         <h1>Select size</h1>
+
         <div className="centerButtons">
           <div>
             <label htmlFor="width"><h2>Width</h2></label>
@@ -19,6 +22,7 @@ function DownloadDialog(props) {
             <input className="inputSize" type="number" name="heightExport" id="heightExport" value={heightExport} min="0" max="10000"  onChange={props.handleChange}></input>
           </div>
         </div>
+        
         <button name="download" className="widerButton" onClick={()=>{
           props.setDownload(true);
           props.setDownloadMostrar(false);
