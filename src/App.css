@@ -22,6 +22,7 @@ body{
   background-color: #f3f3f3;
   font-weight: normal;
   color:var(--secundario);
+  overscroll-behavior-y: contain;
 }
 *:not(i){
   font-family: 'Montserrat', sans-serif;
@@ -347,6 +348,7 @@ button:hover .fa-arrows-rotate{
     height: 100%;
     overflow: scroll;
     padding: 10px;
+    overflow-x: hidden;
   }
   .colorsMiddle{
     overflow: visible;

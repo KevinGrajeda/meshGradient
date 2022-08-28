@@ -16,7 +16,7 @@ export function RangeSelectors(props) {
     <label htmlFor="noiseRatio"><h2>Noise</h2></label>
     <div className="range">
       <i className="fa-solid fa-border-all"></i>
-      <input type="range" name="noiseRatio" id="noiseRatio" value={props.noiseRatio} min="0" max="0.06" step="any" onChange={props.handleChange}></input>
+      <input type="range" name="noiseRatio" id="noiseRatio" value={props.noiseRatio} min="0" max="0.08" step="any" onChange={props.handleChange}></input>
       <i className="fa-solid fa-border-none"></i>
     </div>
     <div className="line"></div>
