@@ -30,12 +30,11 @@ You can create gradient images with the colors and sizes you want, tweak the par
 <br/>works on mobile and desktop, you can install it for offline use.
 
 ## Examples of generated images
-
-<div align="center">
-  <a href="https://kevingrajeda.github.io/meshGradient/">
-    <img src="https://user-images.githubusercontent.com/60023139/183526086-f532350a-0360-4b83-a7d5-9f49a18eca55.gif" alt="Using website gif" height="350" >
-  </a>
-</div>
+![imagen](https://user-images.githubusercontent.com/60023139/198748878-4837b562-81f9-4c59-85f4-8db829d8f3c9.jpg)
+![meshGradient (4)](https://user-images.githubusercontent.com/60023139/198749298-753ebaf5-0183-4973-a1a7-758fce619868.png)
+![meshGradient (6)](https://user-images.githubusercontent.com/60023139/198749305-e5e43420-b784-4b39-90c8-5881ecec33e2.png)
+![meshGradient (7)](https://user-images.githubusercontent.com/60023139/198749475-68c71ad8-b1b8-48f1-a19b-111c05f666f5.png)
+![meshGradient (9)](https://user-images.githubusercontent.com/60023139/198749664-07e2d56f-6f2b-4987-ac5a-205ea575ba6b.png)
 
 <!-- GETTING STARTED -->
 ## Getting Started
