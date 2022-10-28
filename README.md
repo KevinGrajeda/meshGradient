@@ -1,70 +1,70 @@
-# Getting Started with Create React App
+<br />
+<div align="center">
+  <a href="https://kevingrajeda.github.io/meshGradient/">
+    <img src="https://user-images.githubusercontent.com/60023139/198747554-55848b3d-0560-4c3d-aebd-68932505855e.png" alt="Logo" width="80" height="80">
+  </a>
+  <h3 align="center">Mesh Gradient Generator</h3>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+  <p align="center">
+    Generate nice gradient images
+    <br />
+    <a href="https://kevingrajeda.github.io/meshGradient/">View Live App >></a>
+  </p>
+</div>
 
-## Available Scripts
+<!-- ABOUT THE PROJECT -->
+## About The Project
 
-In the project directory, you can run:
+[![License](https://img.shields.io/github/license/KevinGrajeda/meshGradient?color=blue)](https://github.com/KevinGrajeda/meshGradient/blob/main/LICENSE.md)
+[![React](https://badges.aleen42.com/src/react.svg)](https://reactjs.org/)
+[![Version](https://img.shields.io/github/v/release/KevinGrajeda/meshGradient)](https://github.com/KevinGrajeda/meshGradient/releases/tag/1.0.0)
 
-### `npm start`
+<div align="center">
+  <a href="https://kevingrajeda.github.io/meshGradient/" align="center">
+    <img src="https://user-images.githubusercontent.com/60023139/198747137-a508a83e-e67f-4e0f-b237-3a21f9739dba.png" alt="Logo" height="400">
+  </a>
+</div>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Web app to easily generate images
+You can create gradient images with the colors and sizes you want, tweak the parameters to your liking.
+<br/>works on mobile and desktop, you can install it for offline use.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Examples of generated images
 
-### `npm test`
+<div align="center">
+  <a href="https://kevingrajeda.github.io/meshGradient/">
+    <img src="https://user-images.githubusercontent.com/60023139/183526086-f532350a-0360-4b83-a7d5-9f49a18eca55.gif" alt="Using website gif" height="350" >
+  </a>
+</div>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<!-- GETTING STARTED -->
+## Getting Started
 
-### `npm run build`
+You can use the app by going to the [Live site](https://kevingrajeda.github.io/meshGradient/), or by setting up the project locally.
+To get a local copy up and running follow these simple example steps.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Installation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Clone the repo
+   ```sh
+   $ git clone https://github.com/KevinGrajeda/meshGradient.git
+   ```
+3. Navigate to folder and install NPM packages
+   ```sh
+   $ cd meshGradient
+   $ npm i
+   ```
+4. run development server
+   ```sh
+   $ npm start
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<!-- LICENSE -->
+## License
 
-### `npm run eject`
+Distributed under the MIT License. See `LICENSE.md` for more information.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<!-- CONTACT -->
+## Contact
+Kevin Grajeda - [@KevinGrajeda](https://github.com/KevinGrajeda) - yokevin20@gmail.com
