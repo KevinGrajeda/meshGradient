@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/meshGradient/static/css/main.3a3e30ed.css",
-    "main.js": "/meshGradient/static/js/main.74bb8450.js",
+    "main.js": "/meshGradient/static/js/main.5d8f786b.js",
     "service-worker.js": "/meshGradient/service-worker.js",
     "static/media/shader.frag": "/meshGradient/static/media/shader.2d9dd251bb992942f63e.frag",
     "index.html": "/meshGradient/index.html",
     "static/media/shader.vert": "/meshGradient/static/media/shader.d9cca870d8d741a4f6e3.vert",
     "main.3a3e30ed.css.map": "/meshGradient/static/css/main.3a3e30ed.css.map",
-    "main.74bb8450.js.map": "/meshGradient/static/js/main.74bb8450.js.map"
+    "main.5d8f786b.js.map": "/meshGradient/static/js/main.5d8f786b.js.map"
   },
   "entrypoints": [
     "static/css/main.3a3e30ed.css",
-    "static/js/main.74bb8450.js"
+    "static/js/main.5d8f786b.js"
   ]
 }
