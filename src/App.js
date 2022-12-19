@@ -21,6 +21,7 @@ function App() {
   
   const [downloadMostrar, setDownloadMostrar] = useState(false);
   const [download, setDownload] = useState(false);
+  const [share, setShare] = useState(false);
   
   
   const handleChange = useCallback((event) => {
@@ -69,10 +70,10 @@ function App() {
   return (
     <div className="App" >
       {downloadMostrar?
-        <DownloadDialog setDownload={setDownload} setDownloadMostrar={setDownloadMostrar} gradientValues={gradientValues} handleChange={handleChange} download={download}/>
+        <DownloadDialog setShare={setShare} setDownload={setDownload} setDownloadMostrar={setDownloadMostrar} gradientValues={gradientValues} handleChange={handleChange} download={download} share={share}/>
       :""}
       <div className="Contenedor">
-        <GradientCanvas download={download} setDownload={setDownload} gradientValues={gradientValues}/>
+        <GradientCanvas share={share} download={download} setShare={setShare} setDownload={setDownload} gradientValues={gradientValues}/>
         <PanelControl setDownloadMostrar={setDownloadMostrar} handleChange={handleChange} changeNumber={changeNumber} colorChange={colorChange} gradientValues={gradientValues}/>
       </div>
     </div>

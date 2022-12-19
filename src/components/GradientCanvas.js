@@ -140,6 +140,23 @@ function GradientCanvas(props) {
       p.resizeCanvas(w, h);
     }
 
+    p.share=function(){
+      let w=p.width;
+      let h=p.height;
+      p.resizeCanvas(widthExport, heightExport);
+      this.canvas.toBlob(blob => {
+        var file = new File([blob], "meshGradient.png", {type: 'image/png'});
+        var filesArray = [file];
+        if(navigator.canShare && navigator.canShare({ files: filesArray })) {
+          navigator.share({
+            files: filesArray,
+            title: 'Mesh Gradient',
+          });
+        }
+      });
+      p.resizeCanvas(w, h);
+    }
+
     function randomizar(){
       spaceCount++;
       positionsUniforms=[];
@@ -219,6 +236,15 @@ function GradientCanvas(props) {
       }
     },
     [props.download]
+  );
+  useEffect(
+    () => {
+      if(props.share){
+        sketch.share();
+        props.setShare(false);
+      }
+    },
+    [props.share]
   );
 
   return (

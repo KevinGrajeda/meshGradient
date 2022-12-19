@@ -30,6 +30,15 @@ function DownloadDialog(props) {
           Download
           <i className="fa-solid fa-download"></i>
         </button>
+        {navigator.canShare?
+          <button name="share" className="widerButton" onClick={()=>{
+          props.setShare(true);
+          props.setDownloadMostrar(false);
+          }}>
+          Share
+          <i className="fa-solid fa-share-alt"></i>
+        </button>:""
+        }
 
       </div>
     </div>
